@@ -31,3 +31,5 @@ override.tf.json
 awskey*
 
 **terraform.tfvars
+
+**.env
