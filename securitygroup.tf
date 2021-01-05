@@ -2,6 +2,11 @@ resource "aws_security_group" "kubernetes-security-group" {
   name   = "kubernete-security-group"
   vpc_id = aws_vpc.kubernetes.id
 
+  tags = {
+    "Name"                             = "kubernetes-security-group"
+    "kubernetes.io/cluster/kubernetes" = "owned"
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -43,12 +48,24 @@ resource "aws_security_group" "kubernetes-security-group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port   = 8
+    to_port     = 0
+    protocol    = "icmp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
 }
 
 
 resource "aws_security_group" "jumpserver-security-group" {
   name   = "jumpserver-security-group"
   vpc_id = aws_vpc.kubernetes.id
+
+  tags = {
+    "Name"                             = "jumpserver-security-group"
+    "kubernetes.io/cluster/kubernetes" = "owned"
+  }
 
   egress {
     from_port   = 0

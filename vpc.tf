@@ -5,7 +5,8 @@ resource "aws_vpc" "kubernetes" {
   enable_dns_hostnames = "true"
   enable_classiclink   = "false"
   tags = {
-    Name = "kubernetes"
+    Name                               = "kubernetes"
+    "kubernetes.io/cluster/kubernetes" = "owned"
   }
 }
 
@@ -16,7 +17,8 @@ resource "aws_subnet" "kubernetes-public-1" {
   availability_zone       = "us-east-2a"
 
   tags = {
-    Name = "kubernetes-public-1"
+    Name                               = "kubernetes-public-1"
+    "kubernetes.io/cluster/kubernetes" = "owned"
   }
 }
 
@@ -27,7 +29,8 @@ resource "aws_subnet" "kubernetes-public-2" {
   availability_zone       = "us-east-2b"
 
   tags = {
-    Name = "kubernetes-public-2"
+    Name                               = "kubernetes-public-2"
+    "kubernetes.io/cluster/kubernetes" = "owned"
   }
 }
 
@@ -38,7 +41,8 @@ resource "aws_subnet" "kubernetes-public-3" {
   availability_zone       = "us-east-2c"
 
   tags = {
-    Name = "kubernetes-public-3"
+    Name                               = "kubernetes-public-3"
+    "kubernetes.io/cluster/kubernetes" = "owned"
   }
 }
 
@@ -49,7 +53,8 @@ resource "aws_subnet" "kubernetes-private-1" {
   availability_zone       = "us-east-2a"
 
   tags = {
-    Name = "kubernetes-private-1"
+    Name                               = "kubernetes-private-1"
+    "kubernetes.io/cluster/kubernetes" = "owned"
   }
 }
 
@@ -60,7 +65,8 @@ resource "aws_subnet" "kubernetes-private-2" {
   availability_zone       = "us-east-2b"
 
   tags = {
-    Name = "kubernetes-private-2"
+    Name                               = "kubernetes-private-2"
+    "kubernetes.io/cluster/kubernetes" = "owned"
   }
 }
 
@@ -71,7 +77,8 @@ resource "aws_subnet" "kubernetes-private-3" {
   availability_zone       = "us-east-2c"
 
   tags = {
-    Name = "kubernetes-private-3"
+    Name                               = "kubernetes-private-3"
+    "kubernetes.io/cluster/kubernetes" = "owned"
   }
 }
 
@@ -80,7 +87,8 @@ resource "aws_internet_gateway" "kubernetes-gw" {
   vpc_id = aws_vpc.kubernetes.id
 
   tags = {
-    Name = "kubernetes"
+    Name                               = "kubernetes"
+    "kubernetes.io/cluster/kubernetes" = "owned"
   }
 }
 
@@ -93,7 +101,8 @@ resource "aws_route_table" "kubernetes-public" {
   }
 
   tags = {
-    Name = "kubernetes-public-1"
+    Name                               = "kubernetes-public-1"
+    "kubernetes.io/cluster/kubernetes" = "owned"
   }
 }
 

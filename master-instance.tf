@@ -7,7 +7,8 @@ resource "aws_instance" "kube-master" {
   instance_type = var.MASTER_INSTANCE_TYPE
 
   tags = {
-    Name = "kube-master"
+    Name                               = "kube-master"
+    "kubernetes.io/cluster/kubernetes" = "owned"
   }
 
   subnet_id = aws_subnet.kubernetes-private-1.id
@@ -17,7 +18,9 @@ resource "aws_instance" "kube-master" {
 
   key_name = aws_key_pair.kubernete-key.key_name
 
-  user_data = data.template_cloudinit_config.cloudinit.rendered
+  user_data = data.template_cloudinit_config.master-cloudinit.rendered
+
+  iam_instance_profile = aws_iam_instance_profile.k8s-cluster-iam-master-role-instanceprofile.name
 }
 
 

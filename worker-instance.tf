@@ -8,7 +8,8 @@ resource "aws_instance" "kube-worker" {
   instance_type = var.WORKER_INSTANCE_TYPE
 
   tags = {
-    Name = "kube-worker-${count.index + 1}"
+    Name                               = "kube-worker-${count.index + 1}"
+    "kubernetes.io/cluster/kubernetes" = "owned"
   }
 
   count = var.WORKER_COUNT
@@ -20,7 +21,9 @@ resource "aws_instance" "kube-worker" {
 
   key_name = aws_key_pair.kubernete-key.key_name
 
-  user_data = data.template_cloudinit_config.cloudinit.rendered
+  user_data = data.template_cloudinit_config.worker-cloudinit.rendered
+
+  iam_instance_profile = aws_iam_instance_profile.k8s-cluster-iam-worker-role-instanceprofile.name
 }
 
 

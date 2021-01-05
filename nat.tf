@@ -1,11 +1,17 @@
 resource "aws_eip" "kubernetes-nat" {
   vpc = true
+  tags = {
+    "kubernetes.io/cluster/kubernetes" = "owned"
+  }
 }
 
 resource "aws_nat_gateway" "kubernetes-nat-gw" {
   allocation_id = aws_eip.kubernetes-nat.id
   subnet_id     = aws_subnet.kubernetes-public-1.id
   depends_on    = [aws_internet_gateway.kubernetes-gw]
+  tags = {
+    "kubernetes.io/cluster/kubernetes" = "owned"
+  }
 }
 
 resource "aws_route_table" "kubernetes-private" {
@@ -16,7 +22,8 @@ resource "aws_route_table" "kubernetes-private" {
   }
 
   tags = {
-    Name = "kubernetes-private-1"
+    Name                               = "kubernetes-private-1"
+    "kubernetes.io/cluster/kubernetes" = "owned"
   }
 }
 

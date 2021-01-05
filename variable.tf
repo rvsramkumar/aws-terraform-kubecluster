@@ -24,7 +24,7 @@ variable "WORKER_INSTANCE_TYPE" {
 }
 
 variable "WORKER_COUNT" {
-  default = 4
+  default = 2
 }
 
 variable "PRIVATE_KEY" {
