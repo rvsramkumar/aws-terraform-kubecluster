@@ -8,7 +8,7 @@ resource "aws_instance" "jump-server" {
   subnet_id = aws_subnet.kubernetes-public-1.id
 
 
-  vpc_security_group_ids = [aws_security_group.kubernetes-security-group.id]
+  vpc_security_group_ids = [aws_security_group.kubernetes-security-group.id, aws_security_group.jumpserver-security-group.id]
 
   key_name = aws_key_pair.kubernete-key.key_name
 }

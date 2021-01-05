@@ -36,7 +36,7 @@ variable "PUBLIC_KEY" {
 }
 
 variable "KUBE_INTERNAL_PORTS" {
-  default = [2379, 2380, 10250, 10251, 10252]
+  default = [2379, 2380, 10250, 10251, 10252, 22]
 }
 
 variable "KUBE_API_PORT" {

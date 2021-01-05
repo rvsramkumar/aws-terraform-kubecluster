@@ -1,6 +1,14 @@
 resource "aws_security_group" "kubernetes-security-group" {
   name   = "kubernete-security-group"
   vpc_id = aws_vpc.kubernetes.id
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   dynamic "ingress" {
     for_each = var.KUBE_INTERNAL_PORTS
     content {
@@ -14,10 +22,10 @@ resource "aws_security_group" "kubernetes-security-group" {
   dynamic "ingress" {
     for_each = var.EXTERNAL_PORTS
     content {
-      from_port   = ingress.value
-      to_port     = ingress.value
-      protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
+      from_port = ingress.value
+      to_port   = ingress.value
+      protocol  = "tcp"
+      self      = true
     }
   }
 
@@ -33,6 +41,30 @@ resource "aws_security_group" "kubernetes-security-group" {
     to_port     = var.NODE_PORT["TO"]
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+}
+
+
+resource "aws_security_group" "jumpserver-security-group" {
+  name   = "jumpserver-security-group"
+  vpc_id = aws_vpc.kubernetes.id
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  dynamic "ingress" {
+    for_each = var.EXTERNAL_PORTS
+    content {
+      from_port   = ingress.value
+      to_port     = ingress.value
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
   }
 
 }
