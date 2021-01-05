@@ -1,4 +1,3 @@
-# Internet VPC
 resource "aws_vpc" "kubernetes" {
   cidr_block           = "10.0.0.0/16"
   instance_tenancy     = "default"
@@ -10,7 +9,6 @@ resource "aws_vpc" "kubernetes" {
   }
 }
 
-# Subnets
 resource "aws_subnet" "kubernetes-public-1" {
   vpc_id                  = aws_vpc.kubernetes.id
   cidr_block              = "10.0.1.0/24"
@@ -77,7 +75,7 @@ resource "aws_subnet" "kubernetes-private-3" {
   }
 }
 
-# Internet GW
+
 resource "aws_internet_gateway" "kubernetes-gw" {
   vpc_id = aws_vpc.kubernetes.id
 
@@ -86,7 +84,7 @@ resource "aws_internet_gateway" "kubernetes-gw" {
   }
 }
 
-# route tables
+
 resource "aws_route_table" "kubernetes-public" {
   vpc_id = aws_vpc.kubernetes.id
   route {
@@ -99,7 +97,7 @@ resource "aws_route_table" "kubernetes-public" {
   }
 }
 
-# route associations public
+
 resource "aws_route_table_association" "kubernetes-public-1-a" {
   subnet_id      = aws_subnet.kubernetes-public-1.id
   route_table_id = aws_route_table.kubernetes-public.id

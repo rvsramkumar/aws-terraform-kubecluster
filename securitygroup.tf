@@ -1,6 +1,6 @@
-resource "aws_security_group" "kubernete-security-group" {
-  name = "kubernete-security-group" # can use expressions here
-
+resource "aws_security_group" "kubernetes-security-group" {
+  name   = "kubernete-security-group"
+  vpc_id = aws_vpc.kubernetes.id
   dynamic "ingress" {
     for_each = var.KUBE_INTERNAL_PORTS
     content {

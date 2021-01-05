@@ -1,4 +1,3 @@
-# nat gw
 resource "aws_eip" "kubernetes-nat" {
   vpc = true
 }
@@ -9,7 +8,6 @@ resource "aws_nat_gateway" "kubernetes-nat-gw" {
   depends_on    = [aws_internet_gateway.kubernetes-gw]
 }
 
-# VPC setup for NAT
 resource "aws_route_table" "kubernetes-private" {
   vpc_id = aws_vpc.kubernetes.id
   route {
@@ -22,7 +20,6 @@ resource "aws_route_table" "kubernetes-private" {
   }
 }
 
-# route associations private
 resource "aws_route_table_association" "kubernetes-private-1-a" {
   subnet_id      = aws_subnet.kubernetes-private-1.id
   route_table_id = aws_route_table.kubernetes-private.id
