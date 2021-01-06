@@ -56,8 +56,7 @@ resource "aws_iam_role_policy" "k8s-cluster-iam-worker-policy" {
          "Effect":"Allow",
          "Action":[
             "s3:PutObject",
-            "s3:GetObject",
-            "s3:DeleteObject"
+            "s3:GetObject"
          ],
          "Resource":"${aws_s3_bucket.kube-cluster-bucket.arn}/*"
       }
