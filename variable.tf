@@ -53,4 +53,3 @@ variable "NODE_PORT" {
 variable "EXTERNAL_PORTS" {
   default = [80, 443, 22]
 }
-

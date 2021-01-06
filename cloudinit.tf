@@ -9,8 +9,12 @@ data "template_file" "shell-script1" {
   template = file("scripts/kubernetes-setup-all-node.sh")
 }
 
-data "template_file" "shell-script2" {
+data "template_file" "shell-script-master" {
   template = file("scripts/kubernetes-master-node.sh")
+}
+
+data "template_file" "shell-script-worker" {
+  template = file("scripts/kubernetes-worker-node.sh")
 }
 
 data "template_cloudinit_config" "master-cloudinit" {
@@ -30,7 +34,7 @@ data "template_cloudinit_config" "master-cloudinit" {
 
   part {
     content_type = "text/x-shellscript"
-    content      = data.template_file.shell-script2.rendered
+    content      = data.template_file.shell-script-master.rendered
   }
 }
 
@@ -48,6 +52,11 @@ data "template_cloudinit_config" "worker-cloudinit" {
   part {
     content_type = "text/x-shellscript"
     content      = data.template_file.shell-script1.rendered
+  }
+
+  part {
+    content_type = "text/x-shellscript"
+    content      = data.template_file.shell-script-worker.rendered
   }
 
 }

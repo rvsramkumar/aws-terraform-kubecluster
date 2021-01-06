@@ -10,3 +10,7 @@ output "worker-ip" {
 output "jump-server" {
   value = aws_instance.jump-server.public_ip
 }
+
+output "s3-bucket-name" {
+  value = aws_s3_bucket.kube-cluster-bucket.id
+}
