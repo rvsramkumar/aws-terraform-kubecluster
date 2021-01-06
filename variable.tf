@@ -53,3 +53,5 @@ variable "NODE_PORT" {
 variable "EXTERNAL_PORTS" {
   default = [80, 443, 22]
 }
+
+variable "S3_BUCKET" {}

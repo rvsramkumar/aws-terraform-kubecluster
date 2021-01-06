@@ -11,10 +11,16 @@ data "template_file" "shell-script-all" {
 
 data "template_file" "shell-script-master" {
   template = file("scripts/kubernetes-master-node.sh")
+  vars = {
+    S3_BUCKET = var.S3_BUCKET
+  }
 }
 
 data "template_file" "shell-script-worker" {
   template = file("scripts/kubernetes-worker-node.sh")
+  vars = {
+    S3_BUCKET = var.S3_BUCKET
+  }
 }
 
 data "template_cloudinit_config" "master-cloudinit" {

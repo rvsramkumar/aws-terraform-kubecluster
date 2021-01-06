@@ -33,3 +33,5 @@ awskey*
 **terraform.tfvars
 
 **.env
+
+s3_bucket_name.txt

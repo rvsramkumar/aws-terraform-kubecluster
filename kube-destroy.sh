@@ -1,3 +1,4 @@
 #!/bin/bash
-aws s3 rm s3://kube-cluster-bucket-boza1njp64savfskjhusa2/join-config.yaml
-terraform destroy
+S3_BUCKET=`cat s3_bucket_name.txt`
+aws s3 rm s3://${S3_BUCKET}/join-config.yaml
+terraform destroy -var S3_BUCKET=$S3_BUCKET

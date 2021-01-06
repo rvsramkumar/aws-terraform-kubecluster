@@ -1,8 +1,14 @@
 resource "aws_s3_bucket" "kube-cluster-bucket" {
-  bucket = "kube-cluster-bucket-boza1njp64savfskjhusa2"
+  bucket = var.S3_BUCKET
   acl    = "private"
 
   tags = {
     Name = "kube-cluster"
+  }
+}
+
+resource "null_resource" "kube-cluster-bucket" {
+  provisioner "local-exec" {
+    command = "echo ${aws_s3_bucket.kube-cluster-bucket.id} > s3_bucket_name.txt"
   }
 }
