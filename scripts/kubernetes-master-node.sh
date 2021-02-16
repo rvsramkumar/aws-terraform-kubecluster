@@ -52,4 +52,4 @@ sed -i "s/API_ENDPOINT/$API_ENDPOINT/g" join-config.yaml
 sed -i "s/CERT_HASH/$CERT_HASH/g" join-config.yaml
 
 aws s3 cp join-config.yaml s3://${S3_BUCKET}/join-config.yaml
-aws s3 cp /etc/kubernetes/admin.conf  s3://${S3_BUCKET}/join-config.yaml
+aws s3 cp /etc/kubernetes/admin.conf  s3://${S3_BUCKET}/admin.conf
